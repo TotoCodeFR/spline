@@ -3,6 +3,9 @@ import { db } from "@splinehq/database";
 import { workspaceMembers, workspaces } from "@splinehq/database/src/schema/workspaces/schema.js";
 import { and, eq } from "drizzle-orm";
 import { auth } from "@splinehq/auth";
+import { logger } from "@splinehq/logger";
+
+const childLogger = logger.child({ module: "workspaces" });
 
 export const v1 = new Elysia();
 
@@ -13,7 +16,7 @@ v1.get("/:workspaceId", async ({ params: { workspaceId }, status, headers }) => 
             headers,
         });
     } catch (e) {
-        console.error(e);
+        childLogger.error(e, "Failed to find auth session");
         return status(500, {
             success: false,
             error: {
@@ -58,8 +61,11 @@ v1.get("/:workspaceId", async ({ params: { workspaceId }, status, headers }) => 
                 },
             });
         }
-    } catch (e) {
-        console.error(e);
+    } catch (e: any) {
+        childLogger.error(
+            { ...e, code: "INTERNAL_DATABASE_ERROR" },
+            "Internal database error during workspace fetch",
+        );
         return status(500, {
             success: false,
             error: {

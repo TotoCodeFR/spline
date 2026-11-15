@@ -1,5 +1,8 @@
 import { Elysia } from "elysia";
 import fs from "node:fs/promises";
+import { logger } from "@splinehq/logger";
+
+const childLogger = logger.child({ service: "moduleLoader" });
 
 export async function loadModules() {
     const modules: {
@@ -18,7 +21,7 @@ export async function loadModules() {
 
                 modules.push({ name, versions });
             } catch (e) {
-                console.error(e);
+                childLogger.error(e, "Failed to load module");
             }
         }),
     );

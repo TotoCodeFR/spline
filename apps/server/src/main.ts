@@ -2,8 +2,13 @@ import { node } from "@elysia/node";
 import { Elysia } from "elysia";
 import { auth as authConfig } from "@splinehq/auth";
 import { loadModules } from "./loader.js";
+import { logger } from "@splinehq/logger";
 
 const app = new Elysia({ adapter: node() });
+
+app.trace(({ id, set }) => {
+    set.headers["x-request-id"] = id.toString();
+});
 
 app.mount(authConfig.handler);
 
@@ -16,7 +21,15 @@ modules.forEach((mod) => {
 });
 
 app.listen(3000, ({ hostname, port, error }) => {
-    if (error) throw error;
+    if (error) {
+        return logger.error({ error }, "failed to start server");
+    }
 
-    console.log(`Server is now listening on ${hostname}:${port}`);
+    logger.info(
+        {
+            port,
+            hostname,
+        },
+        "Server is now listening",
+    );
 });
