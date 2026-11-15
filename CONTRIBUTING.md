@@ -4,6 +4,38 @@ This guide covers the coding standards and pull request requirements.
 
 For setting up a development environment, check [the README.md's pre-requisites and getting started](./README.md#prerequisites).
 
+## AI-assisted contributions
+
+We allow AI assistance in most of the codebase, but not everywhere. The goal is simple: whoever submits code must understand it and be able to defend it, and code that touches confidential data must be written by a human.
+
+### Protected paths (human-written only)
+
+AI tools must not be used to write or modify code in these areas:
+
+- `packages/auth/**`
+- `packages/db/**`
+- `packages/logger/**`
+- Any code handling sessions, tokens, credentials, encryption, permissions or workspace authorization.
+
+### Everywhere else
+
+AI assistance (including autocomplete, chat assistants and agents) is allowed for parts of the backend that don't fall under the protected paths, UI, tooling, tests and documentation, provided that:
+
+1. **You disclose it.** Add an "AI-assisted" warning to the PR description, and name the tool and model used.
+2. **You understand every line.** You must be able to explain and justify your change during review. "The AI wrote it" is not an answer.
+3. **You have tested it.** Run the test suite and verify behavior yourself.
+4. **You vetted new dependencies.** Check that each package exists, is maintained and is necessary. Dependencies suggested by an AI tool need extra scrutiny.
+5. **You leaked nothing.** Do not paste secrets, real user data or private code into third-party AI tools.
+6. **You are responsible.** You are responsible for any issues that arise in the codebase. If an AI tool causes a bug or a security issue, you are responsible for fixing it.
+
+### What counts as AI assistance
+
+Basic editor features (syntax completion, formatting, linting) do not need disclosure. Anything that generates logic, tests, documentation text or refactors does.
+
+### Consequences
+
+PRs that violate these rules (undisclosed AI use, changes to protected paths written with AI) will be closed. Repeated violations may lead to the contributor being banned from the repository.
+
 ## Pull Requests
 
 - For feature requests, create an issue before making a Pull Request until a maintainer approves the request.
