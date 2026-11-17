@@ -1,19 +1,36 @@
+import { useState } from "react";
+import { motion } from "motion/react";
 import { Input } from "./components/Input";
 import auth from "./lib/api/auth";
 import "./SignIn.css";
-import { IconKeyFilled, IconUserFilled } from "@tabler/icons-react";
+import {
+    IconAlertSquareRoundedFilled,
+    IconKeyFilled,
+    IconUserFilled,
+} from "@tabler/icons-react";
 
 type SignInDetails = {
     usernameOrEmail: string;
     password: string;
 };
 
+type SignInStatus = "idle" | "loading" | "success" | "error";
+
+const transition = { duration: 0.12, ease: "easeOut" } as const;
+
+const hidden = { opacity: 0, filter: "blur(6px)" };
+const visible = { opacity: 1, filter: "blur(0px)" };
+
 export function SignIn() {
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const [status, setStatus] = useState<SignInStatus>("idle");
+
+    async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const form = e.currentTarget;
         if (!form.reportValidity()) return;
+
+        setStatus("loading");
 
         const data: SignInDetails = Object.fromEntries(new FormData(form)) as SignInDetails;
 
@@ -23,10 +40,18 @@ export function SignIn() {
             } else {
                 await auth.signInUsername(data.usernameOrEmail, data.password);
             }
+            setStatus("success");
         } catch (e) {
             console.error(e);
+            setStatus("error");
         }
+
+        setTimeout(() => {
+            setStatus("idle");
+        }, 3000);
     }
+
+    const label = status === "success" ? "Signed in successfully!" : "Sign In!";
 
     return (
         <div className="root">
@@ -57,9 +82,35 @@ export function SignIn() {
                 <p id="redirect">
                     Don't have an account? <a href="/signup">Sign up instead.</a>
                 </p>
-                <button id="signIn" className="surface--raised shadow primary" type="submit">
-                    Sign In!
-                </button>
+                <motion.button
+                    id="signIn"
+                    className={`surface--raised shadow primary${status === "loading" ? " loading" : ""}${status === "error" ? " error" : ""}`}
+                    type="submit"
+                    disabled={status === "loading" || status === "success"}
+                >
+                    <motion.span
+                        id="label"
+                        className="state"
+                        animate={status === "idle" || status === "success" ? visible : hidden}
+                        transition={transition}
+                    >
+                        {label}
+                    </motion.span>
+                    <motion.span
+                        className="state"
+                        animate={status === "loading" ? visible : hidden}
+                        transition={transition}
+                    >
+                        <span id="spinner" />
+                    </motion.span>
+                    <motion.span
+                        className="state"
+                        animate={status === "error" ? visible : hidden}
+                        transition={transition}
+                    >
+                        <IconAlertSquareRoundedFilled width={18} height={18} />
+                    </motion.span>
+                </motion.button>
             </form>
         </div>
     );

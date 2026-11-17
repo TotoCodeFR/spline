@@ -74,6 +74,13 @@ label {
         scale 0.15s ease-out;
     width: 100%;
     max-width: 400px;
+    display: grid;
+    place-items: center;
+}
+
+#signIn > .state {
+    grid-area: 1 / 1;
+    pointer-events: none;
 }
 
 #signIn:hover {
@@ -84,6 +91,31 @@ label {
     scale: 0.98;
 }
 
+#signIn.loading {
+    background-color: #ffab2d60;
+}
+
+#signIn.error {
+    background-color: #ff5656;
+    border-color: #ff565640;
+}
+
 #redirect {
     opacity: 0.9;
+}
+
+#spinner {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #00000040;
+    border-top-color: black;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

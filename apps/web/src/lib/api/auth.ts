@@ -15,10 +15,19 @@ async function signUp(username: string, email: string, password: string) {
     const data = await req.json();
 
     if (!req.ok) {
-        throw new Error(data.error ?? "Failed to sign up");
+        return {
+            success: false,
+            error: {
+                code: data.error.code,
+                message: data.error.message
+            }
+        }
     }
 
-    return data;
+    return {
+        success: true,
+        data
+    };
 }
 
 async function signInEmail(email: string, password: string) {
@@ -36,10 +45,19 @@ async function signInEmail(email: string, password: string) {
     const data = await req.json();
 
     if (!req.ok) {
-        throw new Error(data.error ?? "Failed to sign in");
+        return {
+            success: false,
+            error: {
+                code: data.error.code,
+                message: data.error.message
+            }
+        }
     }
 
-    return data;
+    return {
+        success: true,
+        data
+    };
 }
 
 async function signInUsername(username: string, password: string) {
@@ -57,10 +75,19 @@ async function signInUsername(username: string, password: string) {
     const data = await req.json();
 
     if (!req.ok) {
-        throw new Error(data.error ?? "Failed to sign in");
+        return {
+            success: false,
+            error: {
+                code: data.error.code,
+                message: data.error.message
+            }
+        }
     }
 
-    return data;
+    return {
+        success: true,
+        data
+    };
 }
 
 export default {

@@ -74,6 +74,23 @@ label {
         scale 0.15s ease-out;
     width: 100%;
     max-width: 400px;
+    background-color: #ffab2d;
+    color: black;
+    transition:
+        background-color 150ms ease-out,
+        filter 50ms ease-out,
+        scale 150ms ease-out;
+    display: grid;
+    place-items: center;
+}
+
+#signUp > .state {
+    grid-area: 1 / 1;
+    pointer-events: none;
+}
+
+#signUp.loading {
+    background-color: #ffab2d60;
 }
 
 #signUp:hover {
@@ -84,6 +101,27 @@ label {
     scale: 0.98;
 }
 
+#signUp.error {
+    background-color: #ff5656;
+    border-color: #ff565640;
+}
+
 #redirect {
     opacity: 0.9;
+}
+
+#spinner {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #00000040;
+    border-top-color: black;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
