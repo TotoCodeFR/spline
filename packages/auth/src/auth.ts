@@ -40,8 +40,9 @@ export const auth = betterAuth({
     basePath: "/api/v1/auth",
     hooks: {
         after: createAuthMiddleware(async (ctx) => {
+            const newSession = ctx.context.newSession;
+            if (!newSession) return
             if (ctx.path.includes("sign-up")) {
-                const newSession = ctx.context.newSession;
                 const [workspace] = await db
                     .insert(workspaces)
                     .values({
