@@ -3,7 +3,12 @@ import { motion } from "motion/react";
 import { Input } from "./components/Input";
 import auth from "./lib/api/auth";
 import "./SignUp.css";
-import { IconKeyFilled, IconMailFilled, IconUserFilled, IconAlertSquareRoundedFilled } from "@tabler/icons-react";
+import {
+    IconKeyFilled,
+    IconMailFilled,
+    IconUserFilled,
+    IconAlertSquareRoundedFilled,
+} from "@tabler/icons-react";
 
 type SignUpDetails = {
     username: string;
@@ -35,14 +40,14 @@ export function SignUp() {
             const result = await auth.signUp(data.username, data.email, data.password);
             setStatus(result.success ? "success" : "error");
             setTimeout(() => {
-                setStatus("idle")
-            }, 3000)
+                setStatus("idle");
+            }, 3000);
         } catch (e) {
             console.error(e);
             setStatus("error");
             setTimeout(() => {
-                setStatus("idle")
-            }, 3000)
+                setStatus("idle");
+            }, 3000);
         }
     }
 

@@ -19,14 +19,14 @@ async function signUp(username: string, email: string, password: string) {
             success: false,
             error: {
                 code: data.error.code,
-                message: data.error.message
-            }
-        }
+                message: data.error.message,
+            },
+        };
     }
 
     return {
         success: true,
-        data
+        data,
     };
 }
 
@@ -49,14 +49,14 @@ async function signInEmail(email: string, password: string) {
             success: false,
             error: {
                 code: data.error.code,
-                message: data.error.message
-            }
-        }
+                message: data.error.message,
+            },
+        };
     }
 
     return {
         success: true,
-        data
+        data,
     };
 }
 
@@ -79,14 +79,14 @@ async function signInUsername(username: string, password: string) {
             success: false,
             error: {
                 code: data.error.code,
-                message: data.error.message
-            }
-        }
+                message: data.error.message,
+            },
+        };
     }
 
     return {
         success: true,
-        data
+        data,
     };
 }
 

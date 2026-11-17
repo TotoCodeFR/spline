@@ -41,7 +41,7 @@ export const auth = betterAuth({
     hooks: {
         after: createAuthMiddleware(async (ctx) => {
             const newSession = ctx.context.newSession;
-            if (!newSession) return
+            if (!newSession) return;
             if (ctx.path.includes("sign-up")) {
                 const [workspace] = await db
                     .insert(workspaces)

@@ -3,11 +3,7 @@ import { motion } from "motion/react";
 import { Input } from "./components/Input";
 import auth from "./lib/api/auth";
 import "./SignIn.css";
-import {
-    IconAlertSquareRoundedFilled,
-    IconKeyFilled,
-    IconUserFilled,
-} from "@tabler/icons-react";
+import { IconAlertSquareRoundedFilled, IconKeyFilled, IconUserFilled } from "@tabler/icons-react";
 
 type SignInDetails = {
     usernameOrEmail: string;
