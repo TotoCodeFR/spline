@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
-import { SignUp } from "./SignUp";
+import { SignUp } from "./pages/auth/SignUp";
 import "./tokens.css";
 import "./main.css";
-import { SignIn } from "./SignIn";
+import { SignIn } from "./pages/auth/SignIn";
 
 function Home() {
     return <h1>Spline</h1>;
