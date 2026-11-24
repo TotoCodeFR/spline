@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 
-export function App() {
+export function AppLayout() {
     return <>
         <Outlet />
     </>
