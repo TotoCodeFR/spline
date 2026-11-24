@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, useRouteError } from "react-router";
-import styles from "./ErrorPage.module.css"
+import styles from "./ErrorPage.module.css";
 
 export function ErrorPage() {
     const error = useRouteError();
@@ -21,7 +21,10 @@ export function ErrorPage() {
         <main className={styles.main}>
             <h1>{title}</h1>
             <p>{description}</p>
-            <button onClick={() => window.location.assign("/")} className={`${styles.button} primary`}>
+            <button
+                onClick={() => window.location.assign("/")}
+                className={`${styles.button} primary`}
+            >
                 Go home
             </button>
         </main>

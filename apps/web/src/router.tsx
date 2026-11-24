@@ -1,4 +1,4 @@
-import { AppLayout } from "./pages/app/AppLayout"
+import { AppLayout } from "./pages/app/AppLayout";
 import { Home } from "./pages/app/Home";
 import { createBrowserRouter } from "react-router";
 import { ErrorPage } from "./pages/ErrorPage";
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     {
         Component: Landing,
         path: "/",
-        ErrorBoundary: ErrorPage
+        ErrorBoundary: ErrorPage,
     },
     {
         path: "/app",
@@ -22,13 +22,13 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home
+                Component: Home,
             },
             {
                 path: "w/:workspaceId",
-                Component: Workspace
-            }
-        ]
+                Component: Workspace,
+            },
+        ],
     },
     {
         path: "/signin",
@@ -36,6 +36,6 @@ export const router = createBrowserRouter([
     },
     {
         path: "/signup",
-        Component: SignUp
-    }
-])
+        Component: SignUp,
+    },
+]);

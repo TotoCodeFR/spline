@@ -1,3 +1,3 @@
 export function Workspace() {
-    return <p>workspace woohoo</p>
+    return <p>workspace woohoo</p>;
 }
